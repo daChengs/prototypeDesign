@@ -1,0 +1,423 @@
+/* 所有动画效果 */
+@keyframes slideIn {
+    /* 动画关键帧... */
+}
+
+.fade-in {
+    /* 淡入动画... */
+}
+
+/* 开屏动画样式 */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+.splash-logo {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.splash-logo.animate {
+    animation: logoIn 1s ease forwards;
+}
+
+.splash-text {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    opacity: 0;
+}
+
+.splash-text.animate {
+    animation: textIn 1s ease 0.5s forwards;
+}
+
+.splash-loading {
+    margin-top: 30px;
+}
+
+.splash-loading span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 3px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.splash-loading.animate span {
+    animation: loading 1.4s infinite ease-in-out both;
+}
+
+.splash-loading.animate span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.splash-loading.animate span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes logoIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes textIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes loading {
+    0%, 80%, 100% { 
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 添加内容淡入动画 */
+@keyframes contentFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* 波纹效果 */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transform: scale(0);
+    animation: rippleEffect 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 入场动画优化 */
+@keyframes slideInUp {
+    from {
+        transform: translate3d(0, 20px, 0);
+        opacity: 0;
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+/* 统计卡片动画优化 */
+.dashboard-stat-card {
+    will-change: transform, opacity;
+    animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; /* 从0.6s改为0.4s */
+}
+
+.dashboard-stat-card:nth-child(1) { animation-delay: 0.1s; }
+.dashboard-stat-card:nth-child(2) { animation-delay: 0.2s; }
+
+/* 快捷操作卡片动画优化 */
+.action-card {
+    will-change: transform;
+    animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; /* 从0.6s改为0.4s */
+}
+
+.action-card:nth-child(1) { animation-delay: 0.1s; }
+.action-card:nth-child(2) { animation-delay: 0.2s; }
+.action-card:nth-child(3) { animation-delay: 0.3s; }
+.action-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* 演示动画效果 */
+.demo-animation {
+    position: relative;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* 波浪按钮效果 */
+.btn-wave {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-wave::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: btnWave 1s ease-out;
+}
+
+@keyframes btnWave {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* 悬浮卡片效果 */
+.hover-card {
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.hover-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1),
+                -20px -20px 60px rgba(255, 255, 255, 0.8);
+}
+
+/* 渐变边框动画 */
+.gradient-border-animation {
+    position: relative;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.gradient-border-animation::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        var(--primary-color), 
+        var(--secondary-color), 
+        var(--primary-color));
+    border-radius: inherit;
+    z-index: -1;
+    animation: borderGradient 3s linear infinite;
+}
+
+@keyframes borderGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 打字机效果增强 */
+.typewriter-text {
+    overflow: hidden;
+    border-right: 2px solid var(--primary-color);
+    white-space: nowrap;
+    margin: 0 auto;
+    animation: typing 3.5s steps(40, end),
+               blink-caret 0.75s step-end infinite;
+}
+
+/* 磁性按钮效果 */
+.magnetic-button {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.magnetic-button:hover {
+    transform: translate(var(--x, 0), var(--y, 0));
+}
+
+/* 粒子爆炸效果增强 */
+.particle-effect {
+    position: relative;
+}
+
+.particle-item {
+    position: absolute;
+    pointer-events: none;
+    background: var(--primary-color);
+    border-radius: 50%;
+    animation: particleExplode 1s ease-out forwards;
+}
+
+@keyframes particleExplode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x, 50px), var(--y, -50px)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* 闪光加载效果 */
+.shine-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: shineLoading 1.5s infinite;
+}
+
+@keyframes shineLoading {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* 3D翻转卡片效果增强 */
+.flip-card-3d {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card-3d:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 霓虹灯效果增强 */
+.neon-effect {
+    color: #fff;
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px var(--primary-color),
+        0 0 20px var(--primary-color),
+        0 0 40px var(--primary-color);
+    animation: neonPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    from {
+        text-shadow: 
+            0 0 5px #fff,
+            0 0 10px var(--primary-color),
+            0 0 20px var(--primary-color),
+            0 0 40px var(--primary-color);
+    }
+    to {
+        text-shadow: 
+            0 0 2px #fff,
+            0 0 5px var(--primary-color),
+            0 0 10px var(--primary-color),
+            0 0 20px var(--primary-color);
+    }
+}
+
+/* 波浪加载动画增强 */
+.wave-loader {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wave-loader span {
+    width: 4px;
+    height: 20px;
+    background: var(--primary-color);
+    animation: waveLoad 1s ease-in-out infinite;
+}
+
+.wave-loader span:nth-child(2) { animation-delay: 0.1s; }
+.wave-loader span:nth-child(3) { animation-delay: 0.2s; }
+.wave-loader span:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes waveLoad {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(2); }
+}
+
+/* 滑动展开效果增强 */
+.slide-reveal-enhanced {
+    position: relative;
+    overflow: hidden;
+}
+
+.slide-reveal-enhanced::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    transform: translateX(-100%);
+    animation: slideRevealEnhanced 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+@keyframes slideRevealEnhanced {
+    0% { transform: translateX(-100%) skewX(-10deg); }
+    100% { transform: translateX(100%) skewX(-10deg); }
+}
+
+/* 弹性缩放效果增强 */
+.elastic-scale-enhanced {
+    animation: elasticScaleEnhanced 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes elasticScaleEnhanced {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.1); }
+    80% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+} 

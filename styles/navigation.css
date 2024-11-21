@@ -1,0 +1,224 @@
+/* 顶部导航栏 */
+.header-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.98);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 标题容器 */
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+
+/* 标题文字 */
+.header-title-text {
+    font-size: 20px;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientMove 8s ease infinite;
+    letter-spacing: -0.02em;
+}
+
+/* 标题装饰 */
+.header-title::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+    opacity: 0.8;
+}
+
+/* 右侧操作区 */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+/* 图标按钮 */
+.header-icon-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+}
+
+/* 图标悬浮效果 */
+.header-icon-btn:hover {
+    background: rgba(var(--primary-color-rgb), 0.08);
+    transform: translateY(-2px);
+}
+
+.header-icon-btn:hover i {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* 图标点击效果 */
+.header-icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* 通知徽标 */
+.header-notification-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--error-color);
+    border-radius: 50%;
+    border: 2px solid white;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--bottom-nav-height);
+    background: rgba(255, 255, 255, 0.98);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -1px 0 rgba(0,0,0,0.05);
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* 导航项 */
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    color: var(--text-secondary);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* 导航图标 */
+.nav-item i {
+    font-size: 22px;
+    margin-bottom: 4px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+/* 导航文字 */
+.nav-item span {
+    font-size: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+/* 激活状态动画 */
+.nav-item.active {
+    color: var(--primary-color);
+}
+
+.nav-item.active i {
+    animation: iconPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item.active span {
+    animation: textSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 导航项指示器 */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 3px;
+    transform: translateX(-50%);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item.active::after {
+    width: 20px;
+    animation: indicatorExpand 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 动画关键帧 */
+@keyframes iconPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes textSlideUp {
+    0% { transform: translateY(4px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes indicatorExpand {
+    0% { width: 0; opacity: 0; }
+    100% { width: 20px; opacity: 1; }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .header-nav,
+    .bottom-nav {
+        background: rgba(17, 24, 39, 0.98);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .header-title {
+        background: linear-gradient(135deg, #818CF8, #A78BFA);
+        -webkit-background-clip: text;
+    }
+
+    .nav-item::before {
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    }
+}
+
+/* 适配刘海屏 */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .header-nav {
+        padding-top: env(safe-area-inset-top);
+        height: calc(56px + env(safe-area-inset-top));
+    }
+}

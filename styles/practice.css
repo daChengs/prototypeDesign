@@ -1,0 +1,96 @@
+/* 练习页面样式 */
+.practice-header {
+    margin-bottom: 20px;
+}
+
+.filter-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    overflow-x: auto;
+    padding: 4px 0;
+}
+
+.filter-tag {
+    padding: 6px 12px;
+    background: white;
+    border-radius: 16px;
+    font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.filter-tag.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.practice-category-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.practice-category-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.practice-category-title i {
+    color: var(--primary-color);
+}
+
+.practice-progress {
+    margin-bottom: 16px;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 6px;
+    background: rgba(79, 70, 229, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar .progress {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.practice-subcategories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.subcategory-card {
+    background: rgba(79, 70, 229, 0.05);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.subcategory-card i {
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.subcategory-card .count {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: 4px;
+} 

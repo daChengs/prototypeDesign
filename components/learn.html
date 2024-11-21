@@ -1,0 +1,461 @@
+<div class="learn-header">
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="搜索课程、文章或视频">
+    </div>
+</div>
+
+<div class="learn-tabs">
+    <div class="learn-tab active" data-tab="recommended">
+        <i class="fas fa-star"></i>
+        <span>推荐</span>
+    </div>
+    <div class="learn-tab" data-tab="courses">
+        <i class="fas fa-graduation-cap"></i>
+        <span>课程</span>
+    </div>
+    <div class="learn-tab" data-tab="paths">
+        <i class="fas fa-road"></i>
+        <span>路径</span>
+    </div>
+    <div class="learn-tab" data-tab="articles">
+        <i class="fas fa-book-reader"></i>
+        <span>文章</span>
+    </div>
+</div>
+
+<div class="tab-content">
+    <!-- 推荐内容 -->
+    <div class="tab-pane active" id="recommended">
+        <!-- 分类导航 -->
+        <div class="category-nav">
+            <div class="category-scroll">
+                <div class="category-item active" data-category="all">
+                    <i class="fas fa-th-large"></i>
+                    <span>全部</span>
+                </div>
+                <div class="category-item" data-category="tech">
+                    <i class="fas fa-code"></i>
+                    <span>技术开发</span>
+                </div>
+                <div class="category-item" data-category="product">
+                    <i class="fas fa-chart-line"></i>
+                    <span>产品运营</span>
+                </div>
+                <div class="category-item" data-category="design">
+                    <i class="fas fa-palette"></i>
+                    <span>设计创意</span>
+                </div>
+                <div class="category-item" data-category="marketing">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>市场营销</span>
+                </div>
+                <div class="category-item" data-category="hr">
+                    <i class="fas fa-users"></i>
+                    <span>人力资源</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 特色课程 -->
+        <div class="featured-course">
+            <div class="featured-image">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="编程课程">
+                <div class="featured-tag">
+                    <i class="fas fa-crown"></i>
+                    精品课程
+                </div>
+            </div>
+            <div class="course-overlay">
+                <div class="course-category">
+                    <i class="fas fa-briefcase"></i>
+                    职业规划
+                </div>
+                <h3>互联网求职全攻略</h3>
+                <p>从简历准备到offer谈判的完整指南，助你斩获理想offer</p>
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>3000+ 学习</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-star"></i>
+                        <span>4.9 分</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>6小时</span>
+                    </div>
+                </div>
+                <button class="btn-primary">
+                    立即学习
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 推荐课程 -->
+        <div class="learn-section">
+            <div class="section-header">
+                <h2>推荐课程</h2>
+                <a href="#" class="view-all">查看全部</a>
+            </div>
+            <div class="course-grid">
+                <div class="course-card" data-category="tech">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6" alt="Web开发">
+                        <div class="course-tag">HOT</div>
+                        <div class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>2小时20分钟</span>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">面试技巧</div>
+                        <h3>面试技巧精讲</h3>
+                        <p>掌握面试技巧，提升面试成功率</p>
+                        <div class="course-meta">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <div class="students">
+                                <i class="fas fa-user"></i>
+                                <span>2000+ 学习</span>
+                            </div>
+                        </div>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 60%"></div>
+                            </div>
+                            <span class="progress-text">60% 完成</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card" data-category="product">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="产品设计">
+                        <div class="course-tag">NEW</div>
+                        <div class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            <span>1小时45分钟</span>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-category">面试技巧</div>
+                        <h3>面试技巧精讲</h3>
+                        <p>掌握面试技巧，提升面试成功率</p>
+                        <div class="course-meta">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <div class="students">
+                                <i class="fas fa-user"></i>
+                                <span>2000+ 学习</span>
+                            </div>
+                        </div>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 60%"></div>
+                            </div>
+                            <span class="progress-text">60% 完成</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 课程内容 -->
+    <div class="tab-pane" id="courses">
+        <div class="category-nav">
+            <div class="category-scroll">
+                <div class="category-item active" data-category="all">
+                    <i class="fas fa-th-large"></i>
+                    <span>全部</span>
+                </div>
+                <div class="category-item" data-category="tech">
+                    <i class="fas fa-code"></i>
+                    <span>技术开发</span>
+                </div>
+                <div class="category-item" data-category="product">
+                    <i class="fas fa-chart-line"></i>
+                    <span>产品运营</span>
+                </div>
+                <div class="category-item" data-category="design">
+                    <i class="fas fa-palette"></i>
+                    <span>设计创意</span>
+                </div>
+                <div class="category-item" data-category="marketing">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>市场营销</span>
+                </div>
+                <div class="category-item" data-category="hr">
+                    <i class="fas fa-users"></i>
+                    <span>人力资源</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-grid">
+            <!-- 技术开发课程 -->
+            <div class="course-card" data-category="tech">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Web开发">
+                    <div class="course-tag">HOT</div>
+                    <div class="course-duration">
+                        <i class="fas fa-clock"></i>
+                        <span>3小时20分钟</span>
+                    </div>
+                </div>
+                <div class="course-content">
+                    <div class="course-category">技术开发</div>
+                    <h3>Web全栈开发实战</h3>
+                    <p>从前端到后端的完整开发流程</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <div class="students">
+                            <i class="fas fa-user"></i>
+                            <span>3000+ 学习</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 产品运营课程 -->
+            <div class="course-card" data-category="product">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="产品管理">
+                    <div class="course-tag">NEW</div>
+                    <div class="course-duration">
+                        <i class="fas fa-clock"></i>
+                        <span>2小时45分钟</span>
+                    </div>
+                </div>
+                <div class="course-content">
+                    <div class="course-category">产品管理</div>
+                    <h3>产品经理进阶课程</h3>
+                    <p>从需求分析到产品落地的全流程指南</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="students">
+                            <i class="fas fa-user"></i>
+                            <span>2500+ 学习</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设计创意课程 -->
+            <div class="course-card" data-category="design">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5" alt="UI设计">
+                    <div class="course-tag">推荐</div>
+                    <div class="course-duration">
+                        <i class="fas fa-clock"></i>
+                        <span>4小时15分钟</span>
+                    </div>
+                </div>
+                <div class="course-content">
+                    <div class="course-category">UI设计</div>
+                    <h3>UI设计系统构建</h3>
+                    <p>打造统一的设计语言和组件库</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="students">
+                            <i class="fas fa-user"></i>
+                            <span>1800+ 学习</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 市场营销课程 -->
+            <div class="course-card" data-category="marketing">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f" alt="数字营销">
+                    <div class="course-tag">热门</div>
+                    <div class="course-duration">
+                        <i class="fas fa-clock"></i>
+                        <span>3小时30分钟</span>
+                    </div>
+                </div>
+                <div class="course-content">
+                    <div class="course-category">数字营销</div>
+                    <h3>数字营销策略与实践</h3>
+                    <p>掌握现代营销的核心技能</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="students">
+                            <i class="fas fa-user"></i>
+                            <span>2200+ 学习</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 人力资源课程 -->
+            <div class="course-card" data-category="hr">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978" alt="人才管理">
+                    <div class="course-tag">精品</div>
+                    <div class="course-duration">
+                        <i class="fas fa-clock"></i>
+                        <span>2小时50分钟</span>
+                    </div>
+                </div>
+                <div class="course-content">
+                    <div class="course-category">人才管理</div>
+                    <h3>现代人才管理与发展</h3>
+                    <p>科学的人才培养与管理方法</p>
+                    <div class="course-meta">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <div class="students">
+                            <i class="fas fa-user"></i>
+                            <span>1500+ 学习</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学习路径内容 -->
+    <div class="tab-pane" id="paths">
+        <div class="path-cards">
+            <!-- 路径卡片1 -->
+            <div class="path-card">
+                <div class="path-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="path-content">
+                    <div class="path-tag">最受欢迎</div>
+                    <h3>前端开发工程师</h3>
+                    <p>从零开始，系统掌握前端开发技能</p>
+                    <div class="path-meta">
+                        <span class="course-count">
+                            <i class="fas fa-book"></i>
+                            12门课程
+                        </span>
+                        <span class="duration">
+                            <i class="fas fa-clock"></i>
+                            约40小时
+                        </span>
+                        <span class="students">
+                            <i class="fas fa-users"></i>
+                            1000+ 学习
+                        </span>
+                    </div>
+                    <div class="path-progress">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 30%"></div>
+                        </div>
+                        <span class="progress-text">30% 完成</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 路径卡片2 -->
+            <div class="path-card">
+                <div class="path-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="path-content">
+                    <div class="path-tag">热门</div>
+                    <h3>产品经理成长路径</h3>
+                    <p>系统化的产品经理培养计划</p>
+                    <div class="path-meta">
+                        <span class="course-count">
+                            <i class="fas fa-book"></i>
+                            10门课程
+                        </span>
+                        <span class="duration">
+                            <i class="fas fa-clock"></i>
+                            约35小时
+                        </span>
+                        <span class="students">
+                            <i class="fas fa-users"></i>
+                            800+ 学习
+                        </span>
+                    </div>
+                    <div class="path-progress">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 45%"></div>
+                        </div>
+                        <span class="progress-text">45% 完成</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文章内容 -->
+    <div class="tab-pane" id="articles">
+        <div class="article-list">
+            <!-- 文章卡片1 -->
+            <div class="article-card">
+                <div class="article-image">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643" alt="面试技巧">
+                    <div class="article-category">经验分享</div>
+                </div>
+                <div class="article-content">
+                    <h3>如何准备技术面试</h3>
+                    <p>分享一些技术面试的准备技巧和注意事项，帮助你在面试中脱颖而出...</p>
+                    <div class="article-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" alt="作者头像">
+                            <span>张三</span>
+                            <span class="role">资深面试官</span>
+                        </div>
+                        <div class="stats">
+                            <span><i class="fas fa-eye"></i> 1.2k</span>
+                            <span><i class="fas fa-thumbs-up"></i> 88</span>
+                            <span><i class="fas fa-bookmark"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章卡片2 -->
+            <div class="article-card">
+                <div class="article-image">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40" alt="职业规划">
+                    <div class="article-category">职业发展</div>
+                </div>
+                <div class="article-content">
+                    <h3>程序员职业发展规划指南</h3>
+                    <p>探讨软件工程师的职业发展路径，助你规划职业生涯...</p>
+                    <div class="article-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80" alt="作者头像">
+                            <span>李四</span>
+                            <span class="role">技术总监</span>
+                        </div>
+                        <div class="stats">
+                            <span><i class="fas fa-eye"></i> 2.3k</span>
+                            <span><i class="fas fa-thumbs-up"></i> 156</span>
+                            <span><i class="fas fa-bookmark"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

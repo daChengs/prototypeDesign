@@ -1,0 +1,186 @@
+/* 基础变量 */
+:root {
+    --primary-color: #4F46E5;
+    --secondary-color: #7C3AED;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --error-color: #EF4444;
+    --background-color: #F3F4F6;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --bottom-nav-height: 60px;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --content-max-width: 1200px;
+    --content-padding: 16px;
+    --section-spacing: 32px;
+}
+
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+}
+
+/* 基础布局样式 */
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body {
+    font-family: -apple-system, 'Noto Sans SC', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+/* 主容器样式 */
+#main-container {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    padding-top: 56px;
+    padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
+    box-sizing: border-box;
+}
+
+/* 主内容区域样式 */
+.main-content {
+    height: calc(100vh - 56px - var(--bottom-nav-height));
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* 页面容器样式 */
+.app-page {
+    min-height: 100%;
+    width: 100%;
+    position: relative;
+    display: none;
+    padding: 0;
+}
+
+.app-page.active {
+    display: block;
+}
+
+/* 内容容器适配 */
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 适配不同屏幕尺寸 */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0 12px;
+    }
+}
+
+/* 适配刘海屏 */
+@supports (padding: max(0px)) {
+    .main-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* 修复 iOS 橡皮筋效果 */
+body {
+    overscroll-behavior-y: none;
+}
+
+/* 通用组件样式 */
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* 区块间距 */
+.section {
+    margin-bottom: var(--section-spacing);
+}
+
+/* 网格布局容器 */
+.grid-container {
+    display: grid;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+/* 内容区块样式 */
+.dashboard-welcome {
+    margin: 0;
+    border-radius: 0;
+}
+
+.dashboard-stats-grid {
+    padding: 0 16px;
+    margin-top: -50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dashboard-section {
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.activity-card {
+    margin: 0 16px 16px;
+    border-radius: 16px;
+}
+
+/* 搜索栏和标签栏样式 */
+.search-bar,
+.learn-tabs,
+.category-nav {
+    margin: 16px;
+    width: calc(100% - 32px);
+    box-sizing: border-box;
+}
+
+/* 课程网格样式 */
+.course-grid,
+.path-cards,
+.article-list {
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+} 

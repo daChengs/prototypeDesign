@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>面试助手</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/learn.css">
+    <link rel="stylesheet" href="styles/practice.css">
+    <link rel="stylesheet" href="styles/community.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/utilities.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.css">
+</head>
+
+<body>
+    <!-- 开屏动画 -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                    <path d="M2 12L12 17L22 12"/>
+                </svg>
+            </div>
+            <div class="splash-text">面试助手</div>
+            <div class="splash-loading">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容容器 -->
+    <div id="main-container">
+        <!-- 顶部导航 -->
+        <div id="header"></div>
+
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 各个页面容器 -->
+            <div id="page-dashboard" class="app-page"></div>
+            <div id="page-learn" class="app-page" style="display: none;"></div>
+            <div id="page-practice" class="app-page" style="display: none;"></div>
+            <div id="page-community" class="app-page" style="display: none;"></div>
+            <div id="page-profile" class="app-page" style="display: none;"></div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div id="nav"></div>
+
+        <!-- 悬浮操作按钮 -->
+        <button class="fab">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
