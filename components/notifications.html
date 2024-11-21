@@ -157,7 +157,7 @@
                             <span class="time">12:30</span>
                         </div>
                         <div class="chat-preview">
-                            <p>您好，明天下午2点的面试还准时进行吗？</p>
+                            <p>您好，明天下午2点的面试还时��行吗？</p>
                             <div class="unread-count">2</div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
                     <div class="settings-item-left">
                         <i class="fas fa-bell"></i>
                         <div class="settings-text">
-                            <span>接收所有通知</span>
+                            <span>接��所有通知</span>
                             <p>包括评论、点赞、系统通知等</p>
                         </div>
                     </div>
@@ -329,15 +329,24 @@
 
     window.hideNotifications = function() {
         const notificationsPage = document.querySelector('.notifications-page');
-        const bottomNav = document.querySelector('.bottom-nav');
+        const bottomNav = document.querySelector('#nav');
+        const header = document.querySelector('#header');
         
         // 添加离开动画
         notificationsPage.classList.add('leaving');
         
         // 动画结束后执行
         setTimeout(() => {
-            notificationsPage.style.display = 'none';
-            bottomNav.style.display = 'flex';
+            // 显示之前的页面
+            $('.app-page.active').show();
+            
+            // 显示通用导航栏
+            header.style.display = 'block';
+            bottomNav.style.display = 'block';
+            
+            // 隐藏通知页面
+            $('#page-notifications').hide();
+            
             // 移除离开动画类
             notificationsPage.classList.remove('leaving');
         }, 300);

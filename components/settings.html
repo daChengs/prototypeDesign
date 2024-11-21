@@ -1,0 +1,167 @@
+<div class="settings-page">
+    <!-- 内部导航栏 -->
+    <div class="settings-nav">
+        <button class="back-btn" onclick="hideSettings()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1>系统设置</h1>
+        <div class="placeholder"></div>
+    </div>
+
+    <!-- 设置内容 -->
+    <div class="settings-content">
+        <!-- 账号安全 -->
+        <div class="settings-section">
+            <div class="section-header">账号安全</div>
+            <div class="settings-list">
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-lock"></i>
+                        <div class="settings-text">
+                            <span>修改密码</span>
+                            <p>定期更换密码以确保账号安全</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div class="settings-text">
+                            <span>手机绑定</span>
+                            <p>已绑定：138****8888</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 通用设置 -->
+        <div class="settings-section">
+            <div class="section-header">通用设置</div>
+            <div class="settings-list">
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-language"></i>
+                        <div class="settings-text">
+                            <span>语言</span>
+                            <p>简体中文</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-font"></i>
+                        <div class="settings-text">
+                            <span>字体大小</span>
+                            <p>中</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-moon"></i>
+                        <div class="settings-text">
+                            <span>深色模式</span>
+                            <p>跟随系统</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 存储空间 -->
+        <div class="settings-section">
+            <div class="section-header">存储空间</div>
+            <div class="settings-list">
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-trash-alt"></i>
+                        <div class="settings-text">
+                            <span>清除缓存</span>
+                            <p>238MB</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 关于 -->
+        <div class="settings-section">
+            <div class="section-header">关于</div>
+            <div class="settings-list">
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="settings-text">
+                            <span>版本信息</span>
+                            <p>V1.0.0</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="settings-text">
+                            <span>用户协议</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="settings-text">
+                            <span>隐私政策</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 退出登录 -->
+        <div class="logout-section">
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                退出登录
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.hideSettings = function() {
+        const settingsPage = document.querySelector('.settings-page');
+        const bottomNav = document.querySelector('#nav');
+        const header = document.querySelector('#header');
+        
+        // 添加离开动画
+        settingsPage.classList.add('leaving');
+        
+        // 动画结束后执行
+        setTimeout(() => {
+            // 显示之前的页面
+            $('.app-page.active').show();
+            
+            // 显示通用导航栏
+            header.style.display = 'block';
+            bottomNav.style.display = 'block';
+            
+            // 隐藏设置页面
+            $('#page-settings').hide();
+            
+            // 移除离开动画类
+            settingsPage.classList.remove('leaving');
+        }, 300);
+    }
+</script> 

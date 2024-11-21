@@ -856,4 +856,32 @@ input:checked + .slider::before {
 
 .profile-section-card:hover::after {
     transform: translateX(100%);
+}
+
+/* 修改设置项样式 */
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.settings-item:hover {
+    background: rgba(79, 70, 229, 0.05);
+}
+
+/* 退出登录项特殊样式 */
+.settings-item.logout {
+    color: #EF4444;
+}
+
+.settings-item.logout i {
+    color: #EF4444;
+}
+
+.settings-item.logout:hover {
+    background: rgba(239, 68, 68, 0.1);
 } 

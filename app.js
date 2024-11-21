@@ -2,16 +2,14 @@ function showNotifications() {
     // 隐藏其他页面
     $('.app-page').hide();
     
+    // 隐藏通用导航栏
+    $('#header').hide();
+    $('#nav').hide();
+    
     // 加载通知页面内容
     $('#page-notifications').load('components/notifications.html', function() {
         // 显示通知页面
         $('#page-notifications').show().removeClass('leaving');
-        
-        // 隐藏底部导航
-        $('.bottom-nav').hide();
-        
-        // 绑定事件
-        bindNotificationEvents();
     });
     
     // 移除通知徽标
@@ -28,8 +26,9 @@ function hideNotifications() {
         $('#page-notifications').hide();
         // 显示之前的页面
         $('.app-page.active').show();
-        // 显示底部导航
-        $('.bottom-nav').show();
+        // 显示通用导航栏
+        $('#header').show();
+        $('#nav').show();
     }, 300);
 }
 
@@ -258,16 +257,14 @@ function bindAllEvents() {
         // 隐藏其他页面
         $('.app-page').hide();
         
+        // 隐藏通用导航栏
+        $('#header').hide();
+        $('#nav').hide();
+        
         // 加载通知页面内容
         $('#page-notifications').load('components/notifications.html', function() {
             // 显示通知页面
             $('#page-notifications').show().removeClass('leaving');
-            
-            // 隐藏底部导航
-            $('.bottom-nav').hide();
-            
-            // 绑定事件
-            bindNotificationEvents();
         });
         
         // 移除通知徽标
@@ -285,8 +282,9 @@ function bindAllEvents() {
             $('#page-notifications').hide();
             // 显示之前的页面
             $('.app-page.active').show();
-            // 显示底部导航
-            $('.bottom-nav').show();
+            // 显示通用导航栏
+            $('#header').show();
+            $('#nav').show();
         }, 300);
     }
 
@@ -441,8 +439,9 @@ function goBack() {
     // 动画结束后隐藏页面
     setTimeout(() => {
         $('#page-notifications').hide();
-        // 显示底部导航
-        $('.bottom-nav').show();
+        // 显示通用导航栏
+        $('#header').show();
+        $('#nav').show();
     }, 300);
     
     // 更新历史记录
@@ -462,7 +461,8 @@ $(document).ready(function() {
             showNotifications();
         } else {
             $('#page-notifications').hide();
-            $('.bottom-nav').show();
+            $('#header').show();
+            $('#nav').show();
         }
     });
 });
@@ -591,4 +591,37 @@ function showPage(pageId) {
     
     // 滚动到顶部
     $('.main-content').scrollTop(0);
+}
+
+// 显示系统设置页面
+function showSettings() {
+    // 隐藏其他页面
+    $('.app-page').hide();
+    
+    // 隐藏通用导航栏
+    $('#header').hide();
+    $('#nav').hide();
+    
+    // 加载设置页面内容
+    $('#page-settings').load('components/settings.html', function() {
+        // 显示设置页面
+        $('#page-settings').show().removeClass('leaving');
+    });
+}
+
+// 隐藏设置页面
+function hideSettings() {
+    // 添加离开动画
+    $('#page-settings').addClass('leaving');
+    
+    // 动画结束后执行
+    setTimeout(() => {
+        // 隐藏设置页面
+        $('#page-settings').hide();
+        // 显示之前的页面
+        $('.app-page.active').show();
+        // 显示通用导航栏
+        $('#header').show();
+        $('#nav').show();
+    }, 300);
 }
