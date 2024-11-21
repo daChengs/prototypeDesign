@@ -1,96 +1,1184 @@
-/* 练习页面样式 */
+/* 练习页面样式优化 */
 .practice-header {
     margin-bottom: 20px;
+    padding: 0 16px;
 }
 
+/* 搜索栏优化 */
+.search-bar {
+    background: white;
+    border-radius: 16px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+    margin-left: 12px;
+}
+
+/* 筛选标签优化 */
 .filter-tags {
     display: flex;
-    gap: 8px;
-    margin-top: 12px;
+    gap: 10px;
+    margin: 16px 0;
     overflow-x: auto;
     padding: 4px 0;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.filter-tags::-webkit-scrollbar {
+    display: none;
 }
 
 .filter-tag {
-    padding: 6px 12px;
+    padding: 8px 16px;
     background: white;
-    border-radius: 16px;
+    border-radius: 20px;
     font-size: 14px;
+    font-weight: 500;
     white-space: nowrap;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .filter-tag.active {
     background: var(--primary-color);
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.filter-tag:not(.active):hover {
+    background: rgba(79, 70, 229, 0.1);
+    transform: translateY(-2px);
+}
+
+/* 练习分类卡片优化 */
+.practice-categories {
+    padding: 0 16px;
 }
 
 .practice-category-card {
     background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.practice-category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .practice-category-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .practice-category-title i {
+    font-size: 24px;
     color: var(--primary-color);
 }
 
+/* 进度条优化 */
 .practice-progress {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .progress-text {
-    font-size: 14px;
-    color: var(--text-secondary);
-    font-weight: 500;
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-secondary);
     margin-bottom: 8px;
 }
 
 .progress-bar {
-    height: 6px;
+    height: 8px;
     background: rgba(79, 70, 229, 0.1);
-    border-radius: 3px;
+    border-radius: 4px;
     overflow: hidden;
 }
 
 .progress-bar .progress {
     height: 100%;
-    background: var(--primary-color);
-    border-radius: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 4px;
+    transition: width 0.6s ease;
 }
 
+/* 子分类网格优化 */
 .practice-subcategories {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 16px;
 }
 
 .subcategory-card {
     background: rgba(79, 70, 229, 0.05);
-    padding: 12px;
-    border-radius: 12px;
+    padding: 16px;
+    border-radius: 16px;
     text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.subcategory-card:hover {
+    background: rgba(79, 70, 229, 0.1);
+    transform: translateY(-2px);
 }
 
 .subcategory-card i {
+    font-size: 24px;
     color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.subcategory-card span {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
     margin-bottom: 4px;
 }
 
 .subcategory-card .count {
     font-size: 12px;
     color: var(--text-secondary);
+}
+
+/* 模拟面试部分优化 */
+.mock-interview-options {
+    display: grid;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.mock-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mock-info h4 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.mock-info p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* 按钮样式优化 */
+.btn-start, .btn-book {
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 14px;
     font-weight: 500;
-    margin-top: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-start {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-book {
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary-color);
+}
+
+/* 响应式布局优化 */
+@media screen and (max-width: 768px) {
+    .practice-subcategories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mock-option {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    
+    .btn-start, .btn-book {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .practice-category-card {
+        padding: 20px;
+    }
+    
+    .practice-subcategories {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .subcategory-card {
+        padding: 12px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .practice-categories {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+    
+    .practice-category-card {
+        margin-bottom: 0;
+    }
+}
+
+/* 每日练习部分优化 */
+.daily-practice {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.daily-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.daily-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.date {
+    padding: 6px 12px;
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.practice-list {
+    display: grid;
+    gap: 16px;
+}
+
+.practice-item {
+    background: rgba(79, 70, 229, 0.03);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.practice-item:hover {
+    background: rgba(79, 70, 229, 0.06);
+    transform: translateY(-2px);
+}
+
+.practice-info {
+    flex: 1;
+    margin-right: 16px;
+}
+
+.practice-tag {
+    display: inline-flex;
+    padding: 4px 12px;
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.practice-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.practice-info p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-solve {
+    padding: 8px 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-solve:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+/* 难度标签样式 */
+.difficulty {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+}
+
+.difficulty::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.difficulty.easy::before {
+    background: #10B981;
+}
+
+.difficulty.medium::before {
+    background: #F59E0B;
+}
+
+.difficulty.hard::before {
+    background: #EF4444;
+}
+
+/* 通过率样式 */
+.pass-rate {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.pass-rate i {
+    color: #10B981;
+    font-size: 14px;
+}
+
+/* 响应式优化 */
+@media screen and (max-width: 768px) {
+    .practice-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .practice-info {
+        margin-right: 0;
+    }
+    
+    .btn-solve {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .practice-info p {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .daily-practice {
+        padding: 20px;
+    }
+    
+    .daily-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .date {
+        align-self: flex-start;
+    }
+}
+
+/* 动画效果 */
+.practice-item {
+    animation: slideInUp 0.5s ease backwards;
+}
+
+.practice-item:nth-child(1) { animation-delay: 0.1s; }
+.practice-item:nth-child(2) { animation-delay: 0.2s; }
+.practice-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 
+
+/* 学习计划部分优化 */
+.study-plan {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.study-plan h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.study-plan h3::before {
+    content: '';
+    width: 4px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.plan-card {
+    background: rgba(79, 70, 229, 0.03);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(79, 70, 229, 0.05),
+        rgba(124, 58, 237, 0.05)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.plan-card:hover::before {
+    opacity: 1;
+}
+
+.plan-info {
+    position: relative;
+    z-index: 1;
+}
+
+.plan-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.plan-info p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.plan-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.plan-stats span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.plan-stats i {
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.btn-join {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-join i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.btn-join:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.btn-join:hover i {
+    transform: translateX(4px);
+}
+
+/* 添加进度指示器 */
+.plan-progress {
+    margin: 16px 0;
+}
+
+.progress-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    flex: 1;
+}
+
+.progress-step::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: rgba(79, 70, 229, 0.1);
+}
+
+.progress-step:last-child::after {
+    display: none;
+}
+
+.step-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid rgba(79, 70, 229, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.step-dot.completed {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.step-dot.completed i {
+    color: white;
+    font-size: 12px;
+}
+
+.step-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* 响应式优化 */
+@media screen and (max-width: 768px) {
+    .plan-stats {
+        flex-wrap: wrap;
+    }
+    
+    .progress-indicator {
+        overflow-x: auto;
+        padding-bottom: 12px;
+    }
+    
+    .progress-step {
+        min-width: 100px;
+    }
+}
+
+/* 动画效果 */
+.plan-card {
+    animation: fadeInUp 0.6s ease backwards;
+}
+
+.step-dot {
+    animation: scaleIn 0.4s ease backwards;
+}
+
+.step-dot:nth-child(1) { animation-delay: 0.1s; }
+.step-dot:nth-child(2) { animation-delay: 0.2s; }
+.step-dot:nth-child(3) { animation-delay: 0.3s; }
+.step-dot:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+} 
+
+/* 添加卡片悬浮光效 */
+.practice-category-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.8) 0%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.practice-category-card:hover::after {
+    opacity: 0.1;
+}
+
+/* 添加进度条动画效果 */
+.progress-bar .progress {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar .progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: progressShine 2s infinite linear;
+}
+
+@keyframes progressShine {
+    to { transform: translateX(200%); }
+}
+
+/* 优化按钮交互效果 */
+.btn-solve, .btn-start, .btn-book {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-solve::before,
+.btn-start::before,
+.btn-book::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.btn-solve:hover::before,
+.btn-start:hover::before,
+.btn-book:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* 添加练习项目的高亮效果 */
+.practice-item {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba(79, 70, 229, 0.03) 0%,
+        rgba(79, 70, 229, 0.06) 100%
+    );
+}
+
+.practice-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.practice-item:hover::before {
+    opacity: 1;
+}
+
+/* 优化难度标签样式 */
+.difficulty {
+    position: relative;
+    padding: 4px 12px 4px 24px;
+    border-radius: 12px;
+}
+
+.difficulty.easy {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+.difficulty.medium {
+    background: rgba(245, 158, 11, 0.1);
+    color: #F59E0B;
+}
+
+.difficulty.hard {
+    background: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+}
+
+.difficulty::before {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 添加学习计划卡片的动态效果 */
+.plan-card {
+    position: relative;
+    isolation: isolate;
+}
+
+.plan-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        transparent,
+        rgba(79, 70, 229, 0.1),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.plan-card:hover::after {
+    transform: translateX(100%);
+}
+
+/* 优化进度步骤指示器 */
+.progress-step {
+    transition: all 0.3s ease;
+}
+
+.progress-step.completed::after {
+    background: var(--primary-color);
+}
+
+.step-dot {
+    transform-origin: center;
+}
+
+.step-dot.completed {
+    animation: completedPulse 0.5s ease;
+}
+
+@keyframes completedPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* 添加加载状态动画 */
+.loading-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+}
+
+.loading-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    animation: loadingDot 1s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes loadingDot {
+    0%, 100% { transform: scale(0.3); opacity: 0.3; }
+    50% { transform: scale(1); opacity: 1; }
+}
+
+/* 深色模式适配优化 */
+@media (prefers-color-scheme: dark) {
+    .practice-category-card,
+    .practice-item,
+    .daily-practice,
+    .study-plan {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .practice-item::before {
+        background: linear-gradient(
+            135deg,
+            rgba(79, 70, 229, 0.3),
+            rgba(124, 58, 237, 0.3)
+        );
+    }
+
+    .difficulty.easy { background: rgba(16, 185, 129, 0.2); }
+    .difficulty.medium { background: rgba(245, 158, 11, 0.2); }
+    .difficulty.hard { background: rgba(239, 68, 68, 0.2); }
+} 
+
+/* 添加练习卡片的高光效果 */
+.practice-category-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.7)
+    );
+    backdrop-filter: blur(10px);
+}
+
+.practice-category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    transform: rotate(45deg);
+    animation: cardShine 6s infinite;
+}
+
+@keyframes cardShine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    20%, 100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* 优化子分类卡片的悬浮效果 */
+.subcategory-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.subcategory-card:hover {
+    transform: translateY(-5px) rotateX(10deg) rotateY(10deg);
+    box-shadow: 
+        20px 20px 60px rgba(0, 0, 0, 0.05),
+        -20px -20px 60px rgba(255, 255, 255, 0.8);
+}
+
+.subcategory-card i {
+    transition: all 0.3s ease;
+}
+
+.subcategory-card:hover i {
+    transform: translateZ(20px);
+    color: var(--secondary-color);
+}
+
+/* 添加进度条发光效果 */
+.progress-bar {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        90deg,
+        rgba(79, 70, 229, 0.1),
+        rgba(124, 58, 237, 0.1)
+    );
+}
+
+.progress-bar .progress {
+    position: relative;
+}
+
+.progress-bar .progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    filter: blur(3px);
+    animation: progressGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* 优化模拟面试卡片 */
+.mock-option {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(79, 70, 229, 0.1);
+}
+
+.mock-option::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(79, 70, 229, 0.05),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.mock-option:hover::before {
+    transform: translateX(100%);
+}
+
+/* 添加按钮点击波纹效果 */
+.btn-start, .btn-book, .btn-solve {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-start::after,
+.btn-book::after,
+.btn-solve::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.btn-start:active::after,
+.btn-book:active::after,
+.btn-solve:active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* 优化每日练习标题 */
+.daily-header h3 {
+    position: relative;
+    display: inline-block;
+}
+
+.daily-header h3::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.daily-header h3:hover::after {
+    transform: scaleX(1);
+}
+
+/* 添加日期标签动画 */
+.date {
+    position: relative;
+    overflow: hidden;
+}
+
+.date::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(79, 70, 229, 0.2) 0%,
+        transparent 60%
+    );
+    animation: rotateBg 4s linear infinite;
+}
+
+@keyframes rotateBg {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 优化练习项目的交互效果 */
+.practice-item {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.practice-info, .btn-solve {
+    transform: translateZ(0);
+    transition: transform 0.3s ease;
+}
+
+.practice-item:hover .practice-info {
+    transform: translateZ(10px);
+}
+
+.practice-item:hover .btn-solve {
+    transform: translateZ(20px);
+}
+
+/* 添加难度标签的动态效果 */
+.difficulty {
+    position: relative;
+    overflow: hidden;
+}
+
+.difficulty::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.3) 0%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.difficulty:hover::after {
+    opacity: 1;
+}
+
+/* 优化加载状态动画 */
+.loading-state {
+    perspective: 1000px;
+}
+
+.loading-dot {
+    transform-style: preserve-3d;
+    animation: loadingDot3D 1.5s infinite ease-in-out;
+}
+
+@keyframes loadingDot3D {
+    0%, 100% { 
+        transform: rotateX(0deg) scale(0.3);
+        opacity: 0.3;
+    }
+    50% { 
+        transform: rotateX(180deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* 添加滚动提示动画 */
+.scroll-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.6;
+    animation: scrollHint 2s ease-in-out infinite;
+}
+
+@keyframes scrollHint {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -10px); }
 } 

@@ -1,0 +1,370 @@
+<div class="notifications-page">
+    <!-- 顶部导航栏 -->
+    <div class="notifications-nav">
+        <button class="back-btn" onclick="hideNotifications()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-view="notifications" onclick="switchView('notifications')">通知</div>
+            <div class="nav-tab" data-view="messages" onclick="switchView('messages')">消息</div>
+        </div>
+        <button class="settings-btn" onclick="toggleSettingsModal()">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
+    <!-- 通知视图 -->
+    <div class="view-content notifications-view active">
+        <!-- 通知类型切换 -->
+        <div class="notification-tabs">
+            <div class="tab active" data-tab="all" onclick="filterNotifications('all')">全部</div>
+            <div class="tab" data-tab="unread" onclick="filterNotifications('unread')">未读</div>
+            <div class="tab" data-tab="mentions" onclick="filterNotifications('mentions')">提及我的</div>
+            <div class="tab" data-tab="system" onclick="filterNotifications('system')">系统通知</div>
+        </div>
+
+        <!-- 通知内容区域 -->
+        <div class="notifications-content">
+            <!-- 通知列表 -->
+            <div class="notifications-list">
+                <!-- 今天 -->
+                <div class="notification-group">
+                    <div class="group-header">今天</div>
+                    
+                    <div class="notification-item unread">
+                        <div class="notification-avatar">
+                            <img src="https://via.placeholder.com/40" alt="用户头像">
+                            <div class="notification-type comment">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-text">
+                                <span class="user">李四</span> 回复了你的评论：
+                                <span class="highlight">这个建议非常好，我也是这么想的...</span>
+                            </div>
+                            <div class="notification-meta">
+                                <span class="time">10分钟前</span>
+                                <div class="notification-actions">
+                                    <button class="action-btn">查看</button>
+                                    <button class="action-btn">回复</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="unread-indicator"></div>
+                    </div>
+
+                    <div class="notification-item unread system">
+                        <div class="notification-avatar system">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-text">
+                                你的模拟面试即将在30分钟后开始
+                            </div>
+                            <div class="notification-meta">
+                                <span class="time">30分钟前</span>
+                                <div class="notification-actions">
+                                    <button class="action-btn primary">立即准备</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="unread-indicator"></div>
+                    </div>
+                </div>
+
+                <!-- 昨天 -->
+                <div class="notification-group">
+                    <div class="group-header">昨天</div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://via.placeholder.com/40" alt="用户头像">
+                            <div class="notification-type like">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-text">
+                                <span class="user">王五</span> 赞了你的文章
+                                <span class="highlight">《如何准备技术面试》</span>
+                            </div>
+                            <div class="notification-meta">
+                                <span class="time">昨天 14:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 更早 -->
+                <div class="notification-group">
+                    <div class="group-header">更早</div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-avatar">
+                            <img src="https://via.placeholder.com/40" alt="系统通知">
+                            <div class="notification-type achievement">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-text">
+                                恭喜！你获得了新的成就徽章
+                                <span class="highlight">「学习达人」</span>
+                            </div>
+                            <div class="notification-meta">
+                                <span class="time">3天前</span>
+                                <div class="notification-actions">
+                                    <button class="action-btn">查看徽章</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 加载更多 -->
+            <div class="load-more">
+                <button class="load-more-btn">
+                    <i class="fas fa-spinner"></i>
+                    加载更多
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息视图 -->
+    <div class="view-content messages-view">
+        <!-- 搜索框 -->
+        <div class="message-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="搜索聊天记录">
+        </div>
+
+        <!-- 消息列表 -->
+        <div class="message-list">
+            <!-- 置顶消息 -->
+            <div class="message-group">
+                <div class="group-header">置顶消息</div>
+                <div class="chat-item pinned">
+                    <div class="chat-avatar">
+                        <img src="https://via.placeholder.com/40" alt="面试官">
+                        <div class="online-status active"></div>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <h3>面试官小王</h3>
+                            <span class="time">12:30</span>
+                        </div>
+                        <div class="chat-preview">
+                            <p>您好，明天下午2点的面试还准时进行吗？</p>
+                            <div class="unread-count">2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最近消息 -->
+            <div class="message-group">
+                <div class="group-header">最近消息</div>
+                <div class="chat-item">
+                    <div class="chat-avatar">
+                        <img src="https://via.placeholder.com/40" alt="HR">
+                        <div class="online-status"></div>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <h3>HR小李</h3>
+                            <span class="time">昨天</span>
+                        </div>
+                        <div class="chat-preview">
+                            <p>已收到您的简历，我们会尽快安排面试</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="chat-avatar">
+                        <img src="https://via.placeholder.com/40" alt="技术导师">
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <h3>技术导师张老师</h3>
+                            <span class="time">周一</span>
+                        </div>
+                        <div class="chat-preview">
+                            <p>这道算法题的思路理解得很好，建议可以...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新建消息按钮 -->
+        <button class="new-message-btn">
+            <i class="fas fa-edit"></i>
+        </button>
+    </div>
+
+    <!-- 设置弹窗 -->
+    <div class="notification-settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>通知设置</h3>
+                <button class="close-modal" onclick="toggleSettingsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="settings-list">
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-bell"></i>
+                        <div class="settings-text">
+                            <span>接收所有通知</span>
+                            <p>包括评论、点赞、系统通知等</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-comment"></i>
+                        <div class="settings-text">
+                            <span>评论提醒</span>
+                            <p>有人回复你的评论时通知</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-heart"></i>
+                        <div class="settings-text">
+                            <span>点赞提醒</span>
+                            <p>有人点赞你的内容时通知</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-at"></i>
+                        <div class="settings-text">
+                            <span>提及提醒</span>
+                            <p>有人@你时通知</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fas fa-volume-up"></i>
+                        <div class="settings-text">
+                            <span>通知声音</span>
+                            <p>收到通知时播放提示音</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 将函数定义添加到 window 对象上，使其成为全局函数
+    window.toggleSettingsModal = function() {
+        const modal = document.querySelector('.notification-settings-modal');
+        modal.classList.toggle('active');
+    }
+
+    window.switchView = function(view) {
+        document.querySelectorAll('.view-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.querySelector(`.${view}-view`).classList.add('active');
+
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelector(`.nav-tab[data-view="${view}"]`).classList.add('active');
+    }
+
+    window.filterNotifications = function(tabId) {
+        const notifications = document.querySelectorAll('.notification-item');
+        notifications.forEach(notification => {
+            notification.style.display = 'none';
+        });
+
+        if (tabId === 'all') {
+            notifications.forEach(notification => {
+                notification.style.display = 'flex';
+            });
+        } else {
+            document.querySelectorAll(`.notification-item.${tabId}`).forEach(notification => {
+                notification.style.display = 'flex';
+            });
+        }
+    }
+
+    window.hideNotifications = function() {
+        const notificationsPage = document.querySelector('.notifications-page');
+        const bottomNav = document.querySelector('.bottom-nav');
+        
+        // 添加离开动画
+        notificationsPage.classList.add('leaving');
+        
+        // 动画结束后执行
+        setTimeout(() => {
+            notificationsPage.style.display = 'none';
+            bottomNav.style.display = 'flex';
+            // 移除离开动画类
+            notificationsPage.classList.remove('leaving');
+        }, 300);
+    }
+
+    // 页面加载完成后绑定事件
+    document.addEventListener('DOMContentLoaded', function() {
+        // 绑定设置按钮点击事件
+        const settingsBtn = document.querySelector('.settings-btn');
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', window.toggleSettingsModal);
+        }
+
+        // 绑定关闭按钮点击事件
+        const closeBtn = document.querySelector('.close-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', window.toggleSettingsModal);
+        }
+
+        // 绑定模态框外部点击关闭
+        const modal = document.querySelector('.notification-settings-modal');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    window.toggleSettingsModal();
+                }
+            });
+        }
+    });
+</script> 

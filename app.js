@@ -1,115 +1,111 @@
-// 页面切换函数
-function showPage(pageId) {
-    // 先移除所有页面的显示
-    $('.app-page').css('display', 'none').removeClass('active');
+function showNotifications() {
+    // 隐藏其他页面
+    $('.app-page').hide();
     
-    // 显示目标页面
-    $(`#page-${pageId}`).css('display', 'block').addClass('active');
-    
-    // 更新导航状态
-    $('.nav-item').removeClass('active');
-    $(`.nav-item[data-page="${pageId}"]`).addClass('active');
-    
-    // 如果切换到学习页面，确保推荐标签页是激活状态
-    if (pageId === 'learn') {
-        // 激活推荐标签
-        $('.learn-tab').removeClass('active');
-        $('.learn-tab[data-tab="recommended"]').addClass('active');
+    // 加载通知页面内容
+    $('#page-notifications').load('components/notifications.html', function() {
+        // 显示通知页面
+        $('#page-notifications').show().removeClass('leaving');
         
-        // 显示推荐内容
-        $('.tab-pane').removeClass('active').hide();
-        $('#recommended').addClass('active').show();
+        // 隐藏底部导航
+        $('.bottom-nav').hide();
         
-        // 确保分类选中"全部"
-        $('.category-item').removeClass('active');
-        $('.category-item[data-category="all"]').addClass('active');
-    }
+        // 绑定事件
+        bindNotificationEvents();
+    });
     
-    // 滚动到顶部
-    $('.main-content').scrollTop(0);
+    // 移除通知徽标
+    $('.header-notification-badge').hide();
 }
 
-// 加载组件函数
-function loadComponents() {
-    return new Promise((resolve, reject) => {
-        let loadedCount = 0;
-        const totalComponents = 7;
+function hideNotifications() {
+    // 添加离开动画
+    $('#page-notifications').addClass('leaving');
+    
+    // 动画结束后执行
+    setTimeout(() => {
+        // 隐藏通知页面
+        $('#page-notifications').hide();
+        // 显示之前的页面
+        $('.app-page.active').show();
+        // 显示底部导航
+        $('.bottom-nav').show();
+    }, 300);
+}
 
-        function checkAllLoaded() {
-            loadedCount++;
-            if (loadedCount === totalComponents) {
-                resolve();
-            }
+function bindNotificationEvents() {
+    // 视图切换
+    $('.nav-tab').on('click', function() {
+        const view = $(this).data('view');
+        
+        // 更新标签状态
+        $('.nav-tab').removeClass('active');
+        $(this).addClass('active');
+        
+        // 切换视图
+        $('.view-content').removeClass('active');
+        $(`.${view}-view`).addClass('active');
+    });
+
+    // 返回按钮事件
+    $('.back-btn').on('click', hideNotifications);
+    
+    // 通知标签切换事件
+    $('.notification-tabs .tab').on('click', function() {
+        $('.notification-tabs .tab').removeClass('active');
+        $(this).addClass('active');
+        
+        const tabId = $(this).data('tab');
+        filterNotifications(tabId);
+    });
+
+    // 设置按钮点击事件
+    $('.settings-btn').on('click', function() {
+        $('.notification-settings-modal').addClass('active');
+    });
+    
+    // 关闭弹窗事件
+    $('.close-modal').on('click', function() {
+        $('.notification-settings-modal').removeClass('active');
+    });
+    
+    // 点击弹窗外部关闭
+    $('.notification-settings-modal').on('click', function(e) {
+        if ($(e.target).is('.notification-settings-modal')) {
+            $(this).removeClass('active');
         }
-
-        // 加载头部导航
-        $('#header').load('components/header.html', function(response, status, xhr) {
-            if (status === 'error') {
-                console.error('加载头部导航失败:', xhr.status, xhr.statusText);
-            }
-            checkAllLoaded();
-        });
-
-        // 加载底部导航
-        $('#nav').load('components/nav.html', function(response, status, xhr) {
-            if (status === 'error') {
-                console.error('加载底部导航失败:', xhr.status, xhr.statusText);
-            } else {
-                bindNavEvents();
-            }
-            checkAllLoaded();
-        });
-
-        // 加载各个页面内容
-        const pages = ['dashboard', 'learn', 'practice', 'community', 'profile'];
-        pages.forEach(page => {
-            $(`#page-${page}`).load(`components/${page}.html`, function(response, status, xhr) {
-                if (status === 'error') {
-                    console.error(`加载${page}页面失败:`, xhr.status, xhr.statusText);
-                }
-                // 初始隐藏非首页内容
-                if (page !== 'dashboard') {
-                    $(this).css('display', 'none');
-                }
-                checkAllLoaded();
-            });
-        });
+    });
+    
+    // 保存设置变更
+    $('.settings-item .switch input').on('change', function() {
+        const settingType = $(this).closest('.settings-item').find('.settings-text span').text();
+        const isEnabled = $(this).is(':checked');
+        // 这里可以添加保存设置的逻辑
+        console.log(`${settingType}: ${isEnabled}`);
     });
 }
 
-// 绑定导航事件
-function bindNavEvents() {
-    $('.nav-item').on('click', function(e) {
-        // 页面切换
-        const pageId = $(this).data('page');
-        showPage(pageId);
-        
-        // 创建波纹效果
-        createRipple(e, this);
-    });
+function filterNotifications(tabId) {
+    const $notifications = $('.notification-item');
+    
+    switch(tabId) {
+        case 'unread':
+            $notifications.hide();
+            $('.notification-item.unread').show();
+            break;
+        case 'mentions':
+            $notifications.hide();
+            $('.notification-item[data-type="mention"]').show();
+            break;
+        case 'system':
+            $notifications.hide();
+            $('.notification-item.system').show();
+            break;
+        default:
+            $notifications.show();
+    }
 }
 
-// 创建波纹效果
-function createRipple(event, element) {
-    const ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    
-    const rect = element.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = event.clientX - rect.left - size/2 + 'px';
-    ripple.style.top = event.clientY - rect.top - size/2 + 'px';
-    
-    element.appendChild(ripple);
-    
-    // 监听动画结束后删除 ripple 元素
-    ripple.addEventListener('animationend', () => {
-        ripple.remove();
-    });
-}
-
-// 修改初始化函数
 async function initializeApp() {
     try {
         // 显示开屏动画
@@ -126,6 +122,9 @@ async function initializeApp() {
 
         // 等待组件加载完成
         await loadComponentsPromise;
+        
+        // 绑定通知图标点击事件
+        $('.header-notification-icon').on('click', showNotifications);
         
         // 预先渲染默认页面
         showPage('dashboard');
@@ -150,7 +149,6 @@ async function initializeApp() {
     }
 }
 
-// 绑定所有事件
 function bindAllEvents() {
     // 绑定快捷操作事件
     $('.action-card').on('click', function() {
@@ -254,9 +252,115 @@ function bindAllEvents() {
         // 滚动到顶部
         $('.main-content').scrollTop(0);
     });
+
+    // 添加通知页面路由
+    function showNotifications() {
+        // 隐藏其他页面
+        $('.app-page').hide();
+        
+        // 加载通知页面内容
+        $('#page-notifications').load('components/notifications.html', function() {
+            // 显示通知页面
+            $('#page-notifications').show().removeClass('leaving');
+            
+            // 隐藏底部导航
+            $('.bottom-nav').hide();
+            
+            // 绑定事件
+            bindNotificationEvents();
+        });
+        
+        // 移除通知徽标
+        $('.header-notification-badge').hide();
+    }
+
+    // 隐藏通知页面
+    function hideNotifications() {
+        // 添加离开动画
+        $('#page-notifications').addClass('leaving');
+        
+        // 动画结束后执行
+        setTimeout(() => {
+            // 隐藏通知页面
+            $('#page-notifications').hide();
+            // 显示之前的页面
+            $('.app-page.active').show();
+            // 显示底部导航
+            $('.bottom-nav').show();
+        }, 300);
+    }
+
+    // 筛选通知
+    function filterNotifications(tabId) {
+        const $notifications = $('.notification-item');
+        
+        switch(tabId) {
+            case 'unread':
+                $notifications.hide();
+                $('.notification-item.unread').show();
+                break;
+            case 'mentions':
+                $notifications.hide();
+                $('.notification-item[data-type="mention"]').show();
+                break;
+            case 'system':
+                $notifications.hide();
+                $('.notification-item.system').show();
+                break;
+            default:
+                $notifications.show();
+        }
+    }
+
+    // 绑定通知图标点击事件
+    $('.header-notification-icon').on('click', function() {
+        showNotifications();
+    });
+
+    // 绑定通知标签切换事件
+    $('.notification-tabs .tab').on('click', function() {
+        $('.notification-tabs .tab').removeClass('active');
+        $(this).addClass('active');
+        
+        const tabId = $(this).data('tab');
+        // 这里可以添加过滤通知的逻辑
+    });
+
+    // 绑定全部已读按钮事件
+    $('.mark-all-read').on('click', function() {
+        $('.unread-indicator').fadeOut();
+        $('.notification-item.unread').removeClass('unread');
+    });
+
+    // 绑定视图切换事件
+    function bindNotificationEvents() {
+        // 视图切换
+        $('.nav-tab').on('click', function() {
+            const view = $(this).data('view');
+            
+            // 更新标签状态
+            $('.nav-tab').removeClass('active');
+            $(this).addClass('active');
+            
+            // 切换视图
+            $('.view-content').removeClass('active');
+            $(`.${view}-view`).addClass('active');
+        });
+
+        // 返回按钮事件
+        $('.back-btn').on('click', hideNotifications);
+        
+        // 通知标签切换事件
+        $('.notification-tabs .tab').on('click', function() {
+            $('.notification-tabs .tab').removeClass('active');
+            $(this).addClass('active');
+            
+            const tabId = $(this).data('tab');
+            filterNotifications(tabId);
+        });
+    }
 }
 
-// 修改课程筛选函数
 function filterCourses(categoryId) {
     // 获取当前激活的标签页
     const activeTab = $('.learn-tab.active').data('tab');
@@ -278,7 +382,6 @@ function filterCourses(categoryId) {
     }
 }
 
-// 快捷操作处理函数
 function handleQuickAction(action) {
     switch(action) {
         case 'mock-interview':
@@ -296,7 +399,6 @@ function handleQuickAction(action) {
     }
 }
 
-// Toast 提示函数
 function showToast(message) {
     const toast = $('<div>', {
         class: 'toast',
@@ -309,7 +411,6 @@ function showToast(message) {
     }, 2000);
 }
 
-// 添加波纹效果
 function addRippleEffect() {
     const elements = document.querySelectorAll('.nav-item, .dashboard-action-card, .learn-tab, .practice-item');
     elements.forEach(element => {
@@ -333,7 +434,39 @@ function addRippleEffect() {
     });
 }
 
-// 在 DOM 加载完成后初始化应用
+function goBack() {
+    // 添加离开动画
+    $('#page-notifications').addClass('leaving');
+    
+    // 动画结束后隐藏页面
+    setTimeout(() => {
+        $('#page-notifications').hide();
+        // 显示底部导航
+        $('.bottom-nav').show();
+    }, 300);
+    
+    // 更新历史记录
+    window.history.back();
+}
+
+$(document).ready(function() {
+    // 通知图标点击事件
+    $('.header-notification-icon').on('click', showNotifications);
+    
+    // 返回按钮点击事件
+    $('.notifications-nav .back-btn').on('click', goBack);
+    
+    // 处理浏览器返回按钮
+    window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.page === 'notifications') {
+            showNotifications();
+        } else {
+            $('#page-notifications').hide();
+            $('.bottom-nav').show();
+        }
+    });
+});
+
 $(document).ready(function() {
     try {
         initializeApp();
@@ -341,3 +474,121 @@ $(document).ready(function() {
         console.error('初始化失败:', error);
     }
 });
+
+// 添加波纹效果函数
+function createRipple(event, element) {
+    // 移除已有的波纹
+    const ripples = element.getElementsByClassName('ripple');
+    Array.from(ripples).forEach(ripple => ripple.remove());
+
+    // 创建新的波纹元素
+    const ripple = document.createElement('div');
+    ripple.className = 'ripple';
+    
+    // 计算波纹大小
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    
+    // 设置波纹样式
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${event.clientX - rect.left - size/2}px`;
+    ripple.style.top = `${event.clientY - rect.top - size/2}px`;
+    
+    // 添加波纹到元素中
+    element.appendChild(ripple);
+    
+    // 动画结束后移除波纹
+    ripple.addEventListener('animationend', () => {
+        ripple.remove();
+    });
+}
+
+// 绑定导航事件
+function bindNavEvents() {
+    $('.nav-item').on('click', function(e) {
+        const pageId = $(this).data('page');
+        showPage(pageId);
+        
+        // 创建波纹效果
+        createRipple(e, this);
+    });
+}
+
+// 加载组件函数
+function loadComponents() {
+    return new Promise((resolve, reject) => {
+        let loadedCount = 0;
+        const totalComponents = 7;
+
+        function checkAllLoaded() {
+            loadedCount++;
+            if (loadedCount === totalComponents) {
+                resolve();
+            }
+        }
+
+        // 加载头部导航
+        $('#header').load('components/header.html', function(response, status, xhr) {
+            if (status === 'error') {
+                console.error('加载头部导航失败:', xhr.status, xhr.statusText);
+                reject(new Error('加载头部导航失败'));
+            }
+            checkAllLoaded();
+        });
+
+        // 加载底部导航
+        $('#nav').load('components/nav.html', function(response, status, xhr) {
+            if (status === 'error') {
+                console.error('加载底部导航失败:', xhr.status, xhr.statusText);
+                reject(new Error('加载底部导航失败'));
+            } else {
+                // 加载完成后立即绑定导航事件
+                bindNavEvents();
+            }
+            checkAllLoaded();
+        });
+
+        // 加载各个页面内容
+        const pages = ['dashboard', 'learn', 'practice', 'community', 'profile'];
+        pages.forEach(page => {
+            $(`#page-${page}`).load(`components/${page}.html`, function(response, status, xhr) {
+                if (status === 'error') {
+                    console.error(`加载${page}页面失败:`, xhr.status, xhr.statusText);
+                    reject(new Error(`加载${page}页面失败`));
+                }
+                checkAllLoaded();
+            });
+        });
+    });
+}
+
+// 页面切换函数
+function showPage(pageId) {
+    // 先移除所有页面的显示
+    $('.app-page').css('display', 'none').removeClass('active');
+    
+    // 显示目标页面
+    $(`#page-${pageId}`).css('display', 'block').addClass('active');
+    
+    // 更新导航状态
+    $('.nav-item').removeClass('active');
+    $(`.nav-item[data-page="${pageId}"]`).addClass('active');
+    
+    // 如果切换到学习页面，确保推荐标签页是激活状态
+    if (pageId === 'learn') {
+        // 激活推荐标签
+        $('.learn-tab').removeClass('active');
+        $('.learn-tab[data-tab="recommended"]').addClass('active');
+        
+        // 显示推荐内容
+        $('.tab-pane').removeClass('active').hide();
+        $('#recommended').addClass('active').show();
+        
+        // 确保分类选中"全部"
+        $('.category-item').removeClass('active');
+        $('.category-item[data-category="all"]').addClass('active');
+    }
+    
+    // 滚动到顶部
+    $('.main-content').scrollTop(0);
+}

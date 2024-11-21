@@ -1,26 +1,150 @@
 <div class="profile-content">
-    <div class="profile-header">
-        <div class="profile-avatar">
-            <img src="https://via.placeholder.com/150" alt="用户头像">
+    <!-- 个人信息卡片 -->
+    <div class="profile-header-card">
+        <div class="profile-cover">
+            <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809" alt="封面图">
+            <button class="edit-cover">
+                <i class="fas fa-camera"></i>
+            </button>
         </div>
-        <h2 class="profile-name">用户名</h2>
+        <div class="profile-info">
+            <div class="profile-avatar">
+                <img src="https://via.placeholder.com/150" alt="用户头像">
+                <button class="edit-avatar">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <div class="profile-details">
+                <h2 class="profile-name">张三
+                    <span class="verify-badge" title="已认证">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </h2>
+                <p class="profile-bio">前端开发工程师 @ Tech Company</p>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">1,234</span>
+                        <span class="stat-label">学习时长</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">56</span>
+                        <span class="stat-label">完成练习</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">89%</span>
+                        <span class="stat-label">正确率</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- 功能区块 -->
     <div class="profile-sections">
+        <!-- 简历管理 -->
         <div class="profile-section-card">
-            <i class="fas fa-file-alt"></i>
-            <span>我的简历</span>
+            <div class="section-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="section-content">
+                <h3>我的简历</h3>
+                <p>管理和优化您的简历</p>
+                <div class="resume-progress">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                    </div>
+                    <span class="progress-text">完整度 85%</span>
+                </div>
+            </div>
         </div>
+
+        <!-- 学习记录 -->
         <div class="profile-section-card">
-            <i class="fas fa-history"></i>
-            <span>学习记录</span>
+            <div class="section-icon">
+                <i class="fas fa-history"></i>
+            </div>
+            <div class="section-content">
+                <h3>学习记录</h3>
+                <p>查看学习历程和成果</p>
+                <div class="study-stats">
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <span>今日学习 2.5h</span>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- 收藏夹 -->
         <div class="profile-section-card">
-            <i class="fas fa-star"></i>
-            <span>收藏夹</span>
+            <div class="section-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="section-content">
+                <h3>收藏夹</h3>
+                <p>已收藏的课程和文章</p>
+                <div class="collection-preview">
+                    <span class="collection-count">12 个收藏</span>
+                </div>
+            </div>
         </div>
+
+        <!-- 面试记录 -->
         <div class="profile-section-card">
-            <i class="fas fa-cog"></i>
-            <span>设置</span>
+            <div class="section-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="section-content">
+                <h3>面试记录</h3>
+                <p>查看面试历史和反馈</p>
+                <div class="interview-stats">
+                    <span class="upcoming">即将面试: 2场</span>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- 设置区域 -->
+    <div class="profile-settings">
+        <h3 class="settings-title">设置</h3>
+        <div class="settings-list">
+            <div class="settings-item">
+                <div class="settings-item-left">
+                    <i class="fas fa-user-circle"></i>
+                    <span>账号信息</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="settings-item">
+                <div class="settings-item-left">
+                    <i class="fas fa-bell"></i>
+                    <span>通知设置</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="settings-item">
+                <div class="settings-item-left">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>隐私设置</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="settings-item">
+                <div class="settings-item-left">
+                    <i class="fas fa-moon"></i>
+                    <span>深色模式</span>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- 退出登录按钮 -->
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        退出登录
+    </button>
 </div>

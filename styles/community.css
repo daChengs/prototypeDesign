@@ -1,14 +1,18 @@
-/* 社区页面样式 */
+/* 社区页面样式优化 */
 .community-header {
     margin-bottom: 16px;
+    padding: 0 16px;
 }
 
+/* 标签栏优化 */
 .tab-bar {
     display: flex;
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
 }
 
 .tab {
@@ -16,7 +20,13 @@
     text-align: center;
     padding: 12px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    color: var(--text-secondary);
 }
 
 .tab.active {
@@ -24,25 +34,51 @@
     color: white;
 }
 
-.post-card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.tab:not(.active):hover {
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary-color);
 }
 
+/* 帖子卡片优化 */
+.post-feed {
+    padding: 0 16px;
+}
+
+.post-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    animation: slideInUp 0.5s ease backwards;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 帖子头部样式 */
 .post-header {
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    position: relative;
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
     margin-right: 12px;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-meta {
+    flex: 1;
 }
 
 .post-meta h3 {
@@ -50,53 +86,192 @@
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .post-info {
     font-size: 14px;
     color: var(--text-secondary);
-    font-weight: normal;
+}
+
+/* 关注按钮样式 */
+.follow-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.follow-btn:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 帖子内容样式 */
+.post-content {
+    margin-bottom: 16px;
 }
 
 .post-content h4 {
     font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
     margin-bottom: 8px;
 }
 
 .post-content p {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 12px;
 }
 
+/* 标签样式优化 */
 .post-tags {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
     margin-bottom: 16px;
 }
 
 .tag {
-    padding: 4px 12px;
+    padding: 6px 12px;
     background: rgba(79, 70, 229, 0.1);
     color: var(--primary-color);
-    border-radius: 16px;
-    font-size: 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
+.tag:hover {
+    background: rgba(79, 70, 229, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 帖子底部操作栏 */
 .post-footer {
     display: flex;
     gap: 24px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .action-btn {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     color: var(--text-secondary);
     font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .action-btn i {
-    font-size: 16px;
-} 
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.action-btn:hover {
+    color: var(--primary-color);
+}
+
+.action-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* 点赞动画效果 */
+.action-btn.liked {
+    color: #EF4444;
+}
+
+.action-btn.liked i {
+    animation: likeAnimation 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+}
+
+@keyframes likeAnimation {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+}
+
+/* 加载更多按钮 */
+.load-more {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.load-more-btn {
+    padding: 12px 24px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* 响应式优化 */
+@media screen and (max-width: 768px) {
+    .post-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .follow-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    
+    .post-footer {
+        justify-content: space-around;
+    }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .post-card {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .post-footer {
+        border-top-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .load-more-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* 动画效果 */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.post-card:nth-child(1) { animation-delay: 0.1s; }
+.post-card:nth-child(2) { animation-delay: 0.2s; }
+.post-card:nth-child(3) { animation-delay: 0.3s; } 
