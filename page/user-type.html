@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择身份</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #7C3AED;
+            --neutral-50: #F9FAFB;
+            --neutral-100: #F3F4F6;
+            --neutral-500: #6B7280;
+            --neutral-600: #4B5563;
+            --neutral-800: #1F2937;
+            --neutral-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+            height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .type-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 20px;
+            margin-top: 40px;
+        }
+
+        .type-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .type-card:hover {
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        .type-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+        }
+
+        .type-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: var(--neutral-900);
+            }
+
+            .title {
+                color: white;
+            }
+
+            .type-label {
+                color: white;
+            }
+
+            .type-card:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">选择您的身份</h1>
+        
+        <div class="type-container">
+            <div class="type-card" onclick="selectType('student')">
+                <div class="type-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="type-label">学生</div>
+            </div>
+            
+            <div class="type-card" onclick="selectType('professional')">
+                <div class="type-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="type-label">职场人</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectType(type) {
+            // 将选择的类型存储到本地
+            localStorage.setItem('userType', type);
+            // 跳转到行业选择页面
+            window.location.href = 'industry.html';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择行业</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #7C3AED;
+            --neutral-50: #F9FAFB;
+            --neutral-100: #F3F4F6;
+            --neutral-500: #6B7280;
+            --neutral-600: #4B5563;
+            --neutral-800: #1F2937;
+            --neutral-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+            height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 0 20px;
+        }
+
+        .industry-card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .industry-card:hover {
+            border-color: var(--primary-color);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        .industry-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .industry-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: var(--neutral-900);
+            }
+
+            .title {
+                color: white;
+            }
+
+            .industry-card {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .industry-name {
+                color: white;
+            }
+
+            .industry-card:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: var(--primary-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">选择您感兴趣的行业</h1>
+        
+        <div class="industry-grid">
+            <div class="industry-card" onclick="selectIndustry('all')">
+                <div class="industry-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="industry-name">不限</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('tech')">
+                <div class="industry-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="industry-name">互联网/IT</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('finance')">
+                <div class="industry-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="industry-name">金融</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('education')">
+                <div class="industry-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="industry-name">教育</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('medical')">
+                <div class="industry-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="industry-name">医疗健康</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('estate')">
+                <div class="industry-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="industry-name">房地产</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('manufacture')">
+                <div class="industry-icon">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <div class="industry-name">制造业</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('service')">
+                <div class="industry-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                <div class="industry-name">服务业</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('media')">
+                <div class="industry-icon">
+                    <i class="fas fa-photo-video"></i>
+                </div>
+                <div class="industry-name">文化传媒</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('trade')">
+                <div class="industry-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="industry-name">贸易/零售</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('logistics')">
+                <div class="industry-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="industry-name">物流/运输</div>
+            </div>
+            
+            <div class="industry-card" onclick="selectIndustry('energy')">
+                <div class="industry-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="industry-name">能源/环保</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectIndustry(industry) {
+            // 将选择的行业存储到本地
+            localStorage.setItem('industry', industry);
+            // 跳转到主页或下一个页面
+            window.location.href = '/index.html';
+        }
+    </script>
+</body>
+</html> 

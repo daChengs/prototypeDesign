@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>验证码</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #7C3AED;
+            --neutral-50: #F9FAFB;
+            --neutral-100: #F3F4F6;
+            --neutral-500: #6B7280;
+            --neutral-600: #4B5563;
+            --neutral-800: #1F2937;
+            --neutral-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+            height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: calc(20px + env(safe-area-inset-top, 0px));
+            font-size: 24px;
+            color: #333;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .main-content {
+            padding-top: calc(60px + env(safe-area-inset-top, 0px));
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .phone-number {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .code-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 0 30px;
+        }
+
+        .code-input {
+            flex: 1;
+            height: 44px;
+            width: 36px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 20px;
+            text-align: center;
+            background: white;
+            outline: none;
+            padding: 0;
+        }
+
+        .code-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.1);
+        }
+
+        .resend-button {
+            color: var(--primary-color);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 32px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .resend-button.disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .login-button {
+            display: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: var(--neutral-900);
+            }
+
+            .title {
+                color: white;
+            }
+
+            .subtitle {
+                color: #999;
+            }
+
+            .code-input {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.2);
+                color: white;
+            }
+
+            .code-input:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.2);
+            }
+
+            .back-button {
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-button" onclick="history.back()">←</div>
+        
+        <div class="main-content">
+            <h1 class="title">输入验证码</h1>
+            <p class="subtitle">验证码已发送至 <span class="phone-number" id="phoneDisplay">131****3167</span></p>
+            
+            <div class="code-input-group">
+                <input type="text" class="code-input" maxlength="1" pattern="\d" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" pattern="\d" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" pattern="\d" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" pattern="\d" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" pattern="\d" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" pattern="\d" inputmode="numeric">
+            </div>
+
+            <div class="resend-button" id="resendButton">
+                重新发送 (<span id="countdown">60</span>s)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 自动聚焦和跳转
+        const inputs = document.querySelectorAll('.code-input');
+        const loginButton = document.querySelector('.login-button');
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value) {
+                    if (index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                }
+                updateLoginButton();
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // 修改验证码输入完成的处理函数
+        function updateLoginButton() {
+            const isComplete = Array.from(inputs).every(input => input.value.length === 1);
+            if (isComplete) {
+                // 获取所有输入的验证码
+                const code = Array.from(inputs).map(input => input.value).join('');
+                
+                // TODO: 这里可以添加验证码验证的逻辑
+                
+                // 延迟500ms后跳转，给用户一个视觉反馈的时间
+                setTimeout(() => {
+                    // 跳转到身份选择页面
+                    window.location.href = 'user-type.html';
+                }, 500);
+            }
+        }
+
+        // 倒计时功能
+        let countdown = 60;
+        const countdownElement = document.getElementById('countdown');
+        const resendButton = document.getElementById('resendButton');
+
+        function updateCountdown() {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                resendButton.innerHTML = '重新发送';
+                resendButton.classList.remove('disabled');
+                resendButton.onclick = startCountdown;
+            }
+        }
+
+        let timer = setInterval(updateCountdown, 1000);
+        resendButton.classList.add('disabled');
+
+        function startCountdown() {
+            countdown = 60;
+            countdownElement.textContent = countdown;
+            resendButton.classList.add('disabled');
+            resendButton.innerHTML = `重新发送 (<span id="countdown">${countdown}</span>s)`;
+            timer = setInterval(updateCountdown, 1000);
+            // TODO: 重新发送验证码
+        }
+
+        // 显示手机号
+        const phoneNumber = new URLSearchParams(window.location.search).get('phone');
+        if (phoneNumber) {
+            document.getElementById('phoneDisplay').textContent = 
+                phoneNumber.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+        }
+    </script>
+</body>
+</html> 
