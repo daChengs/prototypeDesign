@@ -42,19 +42,77 @@
     <!-- 功能区块 -->
     <div class="profile-sections">
         <!-- 简历管理 -->
-        <div class="profile-section-card">
-            <div class="section-icon">
-                <i class="fas fa-file-alt"></i>
-            </div>
-            <div class="section-content">
-                <h3>我的简历</h3>
-                <p>管理和优化您的简历</p>
-                <div class="resume-progress">
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 85%"></div>
-                    </div>
-                    <span class="progress-text">完整度 85%</span>
+        <div class="profile-section-card resume-card">
+            <div class="resume-header">
+                <div class="resume-title">
+                    <i class="fas fa-file-alt"></i>
+                    <span>我的简历</span>
                 </div>
+                <div class="resume-status">完善度 85%</div>
+            </div>
+            
+            <div class="resume-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <div class="resume-sections">
+                <div class="resume-section">
+                    <div class="section-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-title">教育经历</div>
+                        <div class="section-status complete">已完善</div>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <div class="section-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-title">工作经验</div>
+                        <div class="section-status incomplete">待完善</div>
+                    </div>
+                </div>
+
+                <div class="resume-section">
+                    <div class="section-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-title">技能证书</div>
+                        <div class="section-status complete">已完善</div>
+                    </div>
+                </div>
+
+                <div class="resume-section">
+                    <div class="section-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="section-info">
+                        <div class="section-title">简历附件</div>
+                        <div class="section-status">
+                            <div class="file-info">
+                                <span class="file-name">我的简历.pdf</span>
+                                <span class="file-size">2.5MB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-actions">
+                <button class="preview-btn" onclick="previewResume()">
+                    <i class="fas fa-eye"></i>
+                    预览简历
+                </button>
+                <button class="edit-btn" onclick="window.location.href='page/resume-edit.html'">
+                    <i class="fas fa-pen"></i>
+                    继续完善
+                </button>
             </div>
         </div>
 
@@ -149,3 +207,213 @@
         </div>
     </div>
 </div>
+
+<style>
+.resume-card {
+    padding: 20px;
+}
+
+.resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.resume-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.resume-title i {
+    color: var(--primary-color);
+}
+
+.resume-status {
+    font-size: 14px;
+    color: var(--neutral-600);
+}
+
+.resume-progress {
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 4px;
+    background: var(--neutral-100);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.resume-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.resume-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.resume-section:hover {
+    background: var(--neutral-50);
+}
+
+.section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(79, 70, 229, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.section-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 15px;
+    color: var(--neutral-700);
+}
+
+.section-status {
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.section-status.complete {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+.section-status.incomplete {
+    background: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+}
+
+.resume-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.resume-actions button {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preview-btn {
+    background: var(--neutral-100);
+    color: var(--neutral-600);
+    border: none;
+}
+
+.edit-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.preview-btn:hover {
+    background: var(--neutral-200);
+}
+
+.edit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .resume-section:hover {
+        background: var(--neutral-700);
+    }
+
+    .section-title {
+        color: var(--neutral-200);
+    }
+
+    .preview-btn {
+        background: var(--neutral-700);
+        color: white;
+    }
+
+    .preview-btn:hover {
+        background: var(--neutral-600);
+    }
+
+    .progress-bar {
+        background: var(--neutral-700);
+    }
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--neutral-600);
+}
+
+.file-name {
+    color: var(--primary-color);
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-size {
+    color: var(--neutral-500);
+    font-size: 12px;
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .file-info {
+        color: var(--neutral-400);
+    }
+
+    .file-size {
+        color: var(--neutral-500);
+    }
+}
+</style>
+
+<script>
+    function previewResume() {
+        // TODO: 实现简历预览功能
+        console.log('预览简历');
+    }
+</script>

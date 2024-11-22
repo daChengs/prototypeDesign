@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI性格测试</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #7C3AED;
+            --neutral-50: #F9FAFB;
+            --neutral-100: #F3F4F6;
+            --neutral-500: #6B7280;
+            --neutral-600: #4B5563;
+            --neutral-800: #1F2937;
+            --neutral-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--neutral-50);
+            min-height: 100vh;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .back-button {
+            font-size: 20px;
+            color: var(--neutral-800);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--neutral-800);
+            margin-left: 8px;
+        }
+
+        .container {
+            padding: 20px;
+            padding-top: calc(76px + env(safe-area-inset-top, 0px));
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--neutral-100);
+            border-radius: 2px;
+            margin-bottom: 24px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-color);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 0 16px 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-number {
+            font-size: 13px;
+            color: var(--neutral-500);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            color: var(--neutral-800);
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 20px;
+            border: 1px solid var(--neutral-200);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--neutral-600);
+            position: relative;
+            padding-left: 48px;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neutral-300);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .option.selected {
+            background: rgba(79, 70, 229, 0.05);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .option.selected::before {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            box-shadow: inset 0 0 0 4px white;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            left: 0;
+            right: 0;
+            padding: 0 16px;
+            background: white;
+            padding-top: 12px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-button.prev {
+            background: var(--neutral-100);
+            color: var(--neutral-600);
+        }
+
+        .nav-button.next {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: var(--neutral-900);
+            }
+
+            .header {
+                background: var(--neutral-800);
+            }
+
+            .header-title {
+                color: white;
+            }
+
+            .back-button {
+                color: white;
+            }
+
+            .question-card {
+                background: var(--neutral-800);
+            }
+
+            .question-text {
+                color: white;
+            }
+
+            .option {
+                background: var(--neutral-800);
+                border-color: var(--neutral-700);
+                color: var(--neutral-300);
+            }
+
+            .option::before {
+                border-color: var(--neutral-600);
+            }
+
+            .option.selected {
+                background: rgba(79, 70, 229, 0.15);
+                color: var(--primary-color);
+            }
+
+            .option.selected::before {
+                box-shadow: inset 0 0 0 4px var(--neutral-800);
+            }
+
+            .progress-bar {
+                background: var(--neutral-700);
+            }
+
+            .nav-button.prev {
+                background: var(--neutral-700);
+                color: white;
+            }
+        }
+
+        /* 添加介绍页面样式 */
+        .intro-page {
+            padding: 24px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: calc(60px + env(safe-area-inset-top, 0px));
+            padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+            box-sizing: border-box;
+        }
+
+        .intro-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+        }
+
+        .intro-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--neutral-800);
+            margin-bottom: 16px;
+        }
+
+        .intro-desc {
+            font-size: 15px;
+            color: var(--neutral-600);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 13px;
+            color: var(--neutral-600);
+            line-height: 1.4;
+        }
+
+        .start-button {
+            width: calc(100% - 40px);
+            padding: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            left: 20px;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .start-button:active {
+            transform: scale(0.98);
+        }
+
+        .start-button:hover {
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* 深色模式适配 */
+        @media (prefers-color-scheme: dark) {
+            .start-button {
+                background: var(--primary-color);
+                box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1);
+            }
+        }
+
+        /* 添加总结页面样式 */
+        .summary-page {
+            padding: 16px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* 性格类型标题部分 */
+        .personality-type {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .type-name {
+            font-size: 18px;
+            color: var(--neutral-600);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        /* 特征标签部分 */
+        .trait-list {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .trait-tag {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-color);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* 图表部分 */
+        .trait-chart {
+            margin: 32px 0;
+            padding: 0 12px;
+        }
+
+        .chart-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .chart-label {
+            font-size: 13px;
+            color: var(--neutral-600);
+            width: 60px;
+            text-align: right;
+        }
+
+        .chart-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--neutral-100);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* 描述部分 */
+        .description {
+            font-size: 15px;
+            color: var(--neutral-600);
+            line-height: 1.6;
+            margin: 24px 0;
+            padding: 0 4px;
+        }
+
+        /* 优势劣势部分 */
+        .strength-weakness {
+            margin: 32px 0;
+        }
+
+        .sw-section {
+            margin-bottom: 24px;
+        }
+
+        .sw-section h4 {
+            font-size: 16px;
+            color: var(--neutral-800);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sw-section h4 i {
+            color: var(--primary-color);
+        }
+
+        .sw-section ul {
+            list-style: none;
+            padding-left: 28px;
+        }
+
+        .sw-section li {
+            font-size: 14px;
+            color: var(--neutral-600);
+            margin-bottom: 12px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .sw-section li::before {
+            content: '';
+            position: absolute;
+            left: -16px;
+            top: 8px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+
+        /* 推荐职业部分 */
+        .career-recommendations {
+            margin: 32px 0;
+        }
+
+        .career-recommendations h4 {
+            font-size: 16px;
+            color: var(--neutral-800);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .career-item {
+            background: var(--neutral-50);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .career-item i {
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+
+        .career-item span {
+            font-size: 14px;
+            color: var(--neutral-700);
+        }
+
+        /* 行动建议部分 */
+        .action-suggestions {
+            margin: 32px 0;
+        }
+
+        .suggestion-list {
+            margin-top: 20px;
+        }
+
+        .suggestion-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .suggestion-number {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .suggestion-item p {
+            font-size: 14px;
+            color: var(--neutral-600);
+            line-height: 1.6;
+        }
+
+        /* 按钮部分 */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 32px 0;
+        }
+
+        .action-button {
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .primary-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .secondary-button {
+            background: var(--neutral-100);
+            color: var(--neutral-600);
+            border: none;
+        }
+
+        /* 分享按钮 */
+        .share-button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background: none;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        /* 深色模式适配 */
+        @media (prefers-color-scheme: dark) {
+            .result-card {
+                background: var(--neutral-800);
+            }
+
+            .type-name {
+                color: var(--neutral-300);
+            }
+
+            .description, .suggestion-item p {
+                color: var(--neutral-400);
+            }
+
+            .sw-section h4, .career-recommendations h4 {
+                color: white;
+            }
+
+            .career-item {
+                background: var(--neutral-700);
+            }
+
+            .career-item span {
+                color: white;
+            }
+
+            .secondary-button {
+                background: var(--neutral-700);
+                color: white;
+            }
+
+            .chart-bar {
+                background: var(--neutral-700);
+            }
+        }
+
+        /* 修改问题容器，防止内容被固定按钮遮挡 */
+        #questionPage {
+            padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+        }
+
+        /* 深色模式适配 */
+        @media (prefers-color-scheme: dark) {
+            .navigation {
+                background: var(--neutral-800);
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .trait-chart {
+            margin: 20px 0;
+        }
+
+        .chart-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .chart-label {
+            font-size: 13px;
+            color: var(--neutral-600);
+            width: 80px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--neutral-100);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .strength-weakness {
+            margin: 24px 0;
+        }
+
+        .sw-section {
+            margin-bottom: 16px;
+        }
+
+        .sw-section h4 {
+            font-size: 15px;
+            color: var(--neutral-800);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sw-section ul {
+            list-style: none;
+            padding-left: 24px;
+        }
+
+        .sw-section li {
+            font-size: 14px;
+            color: var(--neutral-600);
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .sw-section li::before {
+            content: '•';
+            position: absolute;
+            left: -16px;
+            color: var(--primary-color);
+        }
+
+        .career-recommendations {
+            margin: 24px 0;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .career-item {
+            background: var(--neutral-50);
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--neutral-800);
+        }
+
+        .career-item i {
+            color: var(--primary-color);
+        }
+
+        .action-suggestions {
+            margin: 24px 0;
+        }
+
+        .suggestion-list {
+            margin-top: 16px;
+        }
+
+        .suggestion-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .suggestion-number {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .suggestion-item p {
+            font-size: 14px;
+            color: var(--neutral-600);
+            line-height: 1.5;
+        }
+
+        .share-section {
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .share-button {
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 深色模式适配 */
+        @media (prefers-color-scheme: dark) {
+            .sw-section h4,
+            .career-item {
+                color: white;
+            }
+
+            .career-item {
+                background: var(--neutral-700);
+            }
+
+            .chart-bar {
+                background: var(--neutral-700);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button" onclick="history.back()">←</div>
+        <div class="header-title">MBTI性格测试</div>
+    </div>
+
+    <!-- 介绍页面 -->
+    <div class="container intro-page" id="introPage">
+        <div class="intro-icon">
+            <i class="fas fa-brain"></i>
+        </div>
+        <h1 class="intro-title">MBTI性格测试</h1>
+        <p class="intro-desc">通过科学的性格测试，了解你的性格类型，发现最适合的职业方向</p>
+        
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="feature-text">测试时长约15分钟，请保持耐心</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="feature-text">准确率高达95%，深入分析性格特征</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="feature-text">匹配最适合的职业发展方向</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="feature-text">已有12.5万人完成测试</div>
+            </div>
+        </div>
+
+        <button class="start-button" onclick="startTest()">开始测试</button>
+    </div>
+
+    <!-- 问题页面 -->
+    <div class="container" id="questionPage" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 50%"></div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-number">问题 1/2</div>
+            <div class="question-text">在社交场合中，你通常会：</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 0)">
+                    主动与他人交谈，扩展社交圈
+                </div>
+                <div class="option" onclick="selectOption(this, 1)">
+                    等待他人来与你交谈，保持适度社交
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button prev" onclick="prevQuestion()" disabled>上一题</button>
+            <button class="nav-button next" onclick="nextQuestion()">下一题</button>
+        </div>
+    </div>
+
+    <!-- 修改总结页面部分 -->
+    <div class="container summary-page" id="summaryPage" style="display: none;">
+        <div class="result-card">
+            <div class="personality-type">INFP</div>
+            <div class="type-name">理想主义者</div>
+            <div class="trait-list">
+                <span class="trait-tag">内向</span>
+                <span class="trait-tag">直觉</span>
+                <span class="trait-tag">感受</span>
+                <span class="trait-tag">知觉</span>
+            </div>
+            
+            <!-- 添加性格分析图表 -->
+            <div class="trait-chart">
+                <div class="chart-item">
+                    <div class="chart-label">内向 (I)</div>
+                    <div class="chart-bar">
+                        <div class="bar-fill" style="width: 75%"></div>
+                    </div>
+                    <div class="chart-label">外向 (E)</div>
+                </div>
+                <div class="chart-item">
+                    <div class="chart-label">直觉 (N)</div>
+                    <div class="chart-bar">
+                        <div class="bar-fill" style="width: 85%"></div>
+                    </div>
+                    <div class="chart-label">感知 (S)</div>
+                </div>
+                <!-- ... 其他维度的图表 ... -->
+            </div>
+
+            <div class="description">
+                INFP型人格的人往往富有理想主义色彩，充满同情心和创造力。他们对自己的价值观和信念非常忠诚，总是寻求帮助他人和实现自我价值的机会。
+            </div>
+
+            <!-- 添加优势和劣势分析 -->
+            <div class="strength-weakness">
+                <div class="sw-section">
+                    <h4><i class="fas fa-star"></i> 性格优势</h4>
+                    <ul>
+                        <li>富有创造力和想象力</li>
+                        <li>对他人充满同理心</li>
+                        <li>坚持自我价值观</li>
+                    </ul>
+                </div>
+                <div class="sw-section">
+                    <h4><i class="fas fa-exclamation-circle"></i> 需要注意</h4>
+                    <ul>
+                        <li>可能过于理想化</li>
+                        <li>不善于处理冲突</li>
+                        <li>有时过于完美主义</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 添加推荐职业 -->
+            <div class="career-recommendations">
+                <h4><i class="fas fa-briefcase"></i> 推荐职业方向</h4>
+                <div class="career-grid">
+                    <div class="career-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>艺术创作</span>
+                    </div>
+                    <div class="career-item">
+                        <i class="fas fa-book"></i>
+                        <span>作家/编辑</span>
+                    </div>
+                    <div class="career-item">
+                        <i class="fas fa-users"></i>
+                        <span>心理咨询</span>
+                    </div>
+                    <div class="career-item">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>教育工作</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 添加行动建议 -->
+            <div class="action-suggestions">
+                <h4><i class="fas fa-lightbulb"></i> 职业发展建议</h4>
+                <div class="suggestion-list">
+                    <div class="suggestion-item">
+                        <span class="suggestion-number">1</span>
+                        <p>发挥创造力，寻找能够表达自我的工作机会</p>
+                    </div>
+                    <div class="suggestion-item">
+                        <span class="suggestion-number">2</span>
+                        <p>培养项目管理能力，提高执行力</p>
+                    </div>
+                    <div class="suggestion-item">
+                        <span class="suggestion-number">3</span>
+                        <p>参与团队协作，提升沟通技巧</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-button secondary-button" onclick="history.back()">
+                    <i class="fas fa-redo"></i> 重新测试
+                </button>
+                <button class="action-button primary-button" onclick="window.location.href='career-planning.html'">
+                    <i class="fas fa-arrow-right"></i> 查看详细报告
+                </button>
+            </div>
+        </div>
+
+        <!-- 添加分享功能 -->
+        <div class="share-section">
+            <button class="share-button">
+                <i class="fas fa-share-alt"></i> 分享结果
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const introPage = document.getElementById('introPage');
+        const questionPage = document.getElementById('questionPage');
+        const summaryPage = document.getElementById('summaryPage');
+        
+        // 初始化时显示介绍页面，隐藏其他页面
+        introPage.style.display = 'block';
+        questionPage.style.display = 'none';
+        summaryPage.style.display = 'none';
+
+        let currentQuestion = 1;
+        const totalQuestions = 2;
+
+        function startTest() {
+            // 隐藏介绍页面，显示问题页面
+            introPage.style.display = 'none';
+            questionPage.style.display = 'block';
+            // 初始化进度条
+            updateProgress();
+        }
+
+        function selectOption(element, index) {
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.querySelector('.progress-fill').style.width = `${progress}%`;
+            document.querySelector('.question-number').textContent = `问题 ${currentQuestion}/${totalQuestions}`;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                updateProgress();
+                // 这里应该加载一个问题的内容
+                if (currentQuestion === 2) {
+                    document.querySelector('.question-text').textContent = '当面对重要决定时，你倾向于：';
+                    document.querySelectorAll('.option')[0].textContent = '依据客观事实和逻辑分析';
+                    document.querySelectorAll('.option')[1].textContent = '考虑个人感受和价值观';
+                }
+            } else {
+                // 显示结果页面
+                questionPage.style.display = 'none';
+                summaryPage.style.display = 'block';
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                updateProgress();
+                // 这里应该加载上一个问题的内容
+                if (currentQuestion === 1) {
+                    document.querySelector('.question-text').textContent = '在社交场合中，你通常会：';
+                    document.querySelectorAll('.option')[0].textContent = '主动与他人交谈，扩展社交圈';
+                    document.querySelectorAll('.option')[1].textContent = '等待他人来与你交谈，保持适度社交';
+                }
+            }
+        }
+    </script>
+</body>
+</html> 
